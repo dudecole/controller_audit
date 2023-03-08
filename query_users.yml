@@ -13,22 +13,26 @@
       controller_host: "192.168.59.10"
       controller_username: "dcole"
       controller_password: "redhat"
-#      teams: all
+#      teams: all #'org2 - team 1' #'org1 - team 1'
       users: all
       validate_certs: false
     register: teams_export
 
   - name: debug teams_export
     debug:
-      var: teams_export
+      var: teams_export.assets.users
     when: ansible_verbosity > 1 
-
+#
   - name: import and format the teams_export    
     controller_audit:
-      resource: 
-      - users
+      audit_item: users
+      resources: "{{ teams_export.assets.users }}"
     register: user_roles
-
+#
+  - name: debug teams_export
+    debug:
+      var: user_roles 
+#
 #
 #
       

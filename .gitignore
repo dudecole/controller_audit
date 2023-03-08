@@ -1,6 +1,9 @@
 # ansible navigator
 *ansible-navigator*
 
+# ansible navigator artifact
+*artifact*.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
