@@ -10,7 +10,7 @@ There is no additional configuration required to implement this into a pre-exist
 ### Variables and Creds
 In the `./group_vars/creds.yml` vaulted file, contains three variables for `ansible.controller.export` to consume, and creating this credentials file will eliminate the need to run this from AAP Controller.  
 
-**./group_vars/creds.yml**
+*./group_vars/creds.yml*
 ```yaml
 
 controller_host: "< ip-address >"
@@ -23,13 +23,13 @@ controller_password: "< controller-password >"
 
 After creating the credentials file, encrypt the `./group_vars/creds.yml` file using the following steps:
 
-**vaulting ./group_vars/creds.yml**
+*vaulting ./group_vars/creds.yml*
 ```yaml
 ansible-vault encrypt ./group_vars/creds.yml
 
 ```
 
-**enter a vault password**
+*enter a vault password*
 ```console
 
 New Vault password:          
@@ -53,17 +53,17 @@ To run this source locally, you will need to make sure the requirments are met f
 
 ### Run Locally
     
-- `ansible-playbook`
+`ansible-playbook`
 
-**install ansible.controller collection**
+*install ansible.controller collection*
 ```console
 [root@something]# ansible-galaxy collection install ansible.controller
 
 ```
 
-- `ansible-navigator`
+`ansible-navigator`
 
-**install ansible-navigator**
+*install ansible-navigator*
 ```console
 [root@something]# python3 -m virtualenv venv
 [root@something]# source venv/bin/activate
