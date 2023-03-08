@@ -1,5 +1,46 @@
 #!/usr/python
+DOCUMENTATION = '''
+---
+module: controller_audit 
+author: "darren cole(@dudecole)"
+short_description: query ansible.controller.export'ed resource data, and format for only necessary audit fields.
+description:
+    - Export Controller resources and format to only include important fields.  See
+      U(https://www.ansible.com/tower) for an overview. <-## CHANGE URL
+options:
+    resources:
+      description:
+        - Resources/Assets exported using the `Ansible.Controller.Export` module 
+      required: True
+      type: list
+    audit_item:
+      description:
+        - The Controller/Asset chosen to be exported by the `ansible.controller.export` module 
+      type: str
+'''
 
+
+EXAMPLES = '''
+
+- name: Export from controller
+  ansible.controller.export:
+    controller_host: "{{ controller_host }}"
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+    users: all
+    validate_certs: false
+  register: teams_export
+  tags: 
+  - export
+  - format
+
+- name: import and format the teams_export    
+  controller_audit:
+    audit_item: users
+    resources: "{{ teams_export.assets.users }}"
+  register: user_roles
+  tags: format
+'''
 
 from ansible.module_utils.basic import AnsibleModule
 
