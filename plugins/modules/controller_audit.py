@@ -123,12 +123,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-## DOCS
-#  - name: import and format the teams_export    
-#    controller_audit:
-#      resource: 
-#      - users
-#    register: user_roles
-
+    
