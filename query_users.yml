@@ -2,71 +2,38 @@
 - hosts: localhost
   connection: local
 
-  vars:
-    controller_host: "192.168.59.10"
-    controller_username: "admin"
-    controller_password: "redhat"
-  
+  vars_files: 
+  - './group_vars/creds.yml'
+ 
   tasks:
-  - name: login to controller
+  - name: Export from controller
     ansible.controller.export:
-      controller_host: "192.168.59.10"
-      controller_username: "dcole"
-      controller_password: "redhat"
-#      teams: all #'org2 - team 1' #'org1 - team 1'
+      controller_host: "{{ controller_host }}"
+      controller_username: "{{ controller_username }}"
+      controller_password: "{{ controller_password }}"
       users: all
       validate_certs: false
     register: teams_export
+    tags: 
+    - export
+    - format
 
   - name: debug teams_export
     debug:
       var: teams_export.assets.users
-    when: ansible_verbosity > 1 
-#
+#    when: ansible_verbosity > 1 
+    tags: 
+    - export
+    - format
+
   - name: import and format the teams_export    
     controller_audit:
       audit_item: users
       resources: "{{ teams_export.assets.users }}"
     register: user_roles
-#
+    tags: format
+
   - name: debug teams_export
     debug:
       var: user_roles 
-#
-#
-#
-      
-
-
-
-#                       ]
-#                    },
-#                    "username": "dcole2org2"
-#                },
-#                {
-#                    "email": "",
-#                    "first_name": "darren",
-#                    "is_superuser": false,
-#                    "is_system_auditor": false,
-#                    "last_name": "cole",
-#                    "natural_key": {
-#                        "type": "user",
-#                        "username": "dcoleorg1"
-#                    },
-#                    "related": {
-#                        "roles": [
-#                            {
-#                                "content_object": {
-#                                    "name": "org1 - team 1",
-#                                    "organization": {
-#                                        "name": "org1 prod",
-#                                        "type": "organization"
-#                                    },
-#                                    "type": "team"
-#                                },
-#                                "name": "Member",
-#                                "type": "role"
-#                            }
-#                        ]
-#                    },
-#
+    tags: format
