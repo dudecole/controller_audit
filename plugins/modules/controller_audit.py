@@ -1,4 +1,3 @@
-#!/usr/python
 DOCUMENTATION = '''
 ---
 module: controller_audit 
