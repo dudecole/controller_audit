@@ -1,0 +1,68 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars:
+    controller_host: "192.168.59.10"
+    controller_username: "admin"
+    controller_password: "redhat"
+  
+  tasks:
+  - name: login to controller
+    ansible.controller.export:
+      controller_host: "192.168.59.10"
+      controller_username: "dcole"
+      controller_password: "redhat"
+#      teams: all
+      users: all
+      validate_certs: false
+    register: teams_export
+
+  - name: debug teams_export
+    debug:
+      var: teams_export
+    when: ansible_verbosity > 1 
+
+  - name: import and format the teams_export    
+    controller_audit:
+      resource: 
+      - users
+    register: user_roles
+
+#
+#
+      
+
+
+
+#                       ]
+#                    },
+#                    "username": "dcole2org2"
+#                },
+#                {
+#                    "email": "",
+#                    "first_name": "darren",
+#                    "is_superuser": false,
+#                    "is_system_auditor": false,
+#                    "last_name": "cole",
+#                    "natural_key": {
+#                        "type": "user",
+#                        "username": "dcoleorg1"
+#                    },
+#                    "related": {
+#                        "roles": [
+#                            {
+#                                "content_object": {
+#                                    "name": "org1 - team 1",
+#                                    "organization": {
+#                                        "name": "org1 prod",
+#                                        "type": "organization"
+#                                    },
+#                                    "type": "team"
+#                                },
+#                                "name": "Member",
+#                                "type": "role"
+#                            }
+#                        ]
+#                    },
+#
