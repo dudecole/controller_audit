@@ -1,4 +1,4 @@
-teams = [{
+resources = [{
     "email": "",
     "first_name": "darren",
     "is_superuser": "false",
