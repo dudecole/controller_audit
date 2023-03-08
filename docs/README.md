@@ -49,7 +49,7 @@ For help on creating a custom AAP Credential, please check the docs [here.](http
 
 ## Running
 
-To run this source locally, you will need to make sure the requirments are met first.  They are here as follows:
+To run this source locally, you will need to make sure the requirments are met first.  They are as follows:
 
 ### Run Locally
     
